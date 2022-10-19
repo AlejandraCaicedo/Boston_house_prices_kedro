@@ -15,7 +15,8 @@ from sklearn.pipeline import Pipeline
 
 logger = logging.getLogger(__name__)
 
-def train_model(x_features: np.ndarray, y_target: np.ndarray):
+def train_model(x: pd.DataFrame,
+                   y:pd.Series):
     """Trains the classification model.
     Args:
         x_features: Training data
@@ -24,8 +25,9 @@ def train_model(x_features: np.ndarray, y_target: np.ndarray):
         Trained model.
     """
 
-    x_train = x_features
-    y_train = y_target
+    y_train = y
+    x_train = x
+    
 
     logger.info("training model")
 
@@ -39,15 +41,23 @@ def train_model(x_features: np.ndarray, y_target: np.ndarray):
     return SVR_pipeline
 
 
-def test_transform(x_test: pd.DataFrame,
+def test_transform(x_test: pd.DataFrame, y:pd.Series,
                    train_transformer: Pipeline) -> np.ndarray:
     """ predictions for dataframe"""
     logger.info("transform X_test")
-    x_test_transformed = train_transformer.transform(x_test)
-    mlflow.set_experiment('readmission')
+    data = pd.concat([x_test,y],axis=1)
+    print(x_test.info())
+    x_test_transformed = train_transformer.transform(data)
+    mlflow.set_experiment('house-pricing')
     mlflow.log_param(f"shape test_transformed", x_test_transformed.shape)
-    return x_test_transformed
+    x_test_transformed_final = x_test_transformed[:, :-1]
+    y_test_validation = x_test_transformed[:, -1]
+    print("x_test_transformed")
+    print(x_test_transformed)
 
+    print("y_test_transformed")
+    print(y_test_validation)
+    return x_test_transformed_final,y_test_validation
 
 def predict(model,
             data: np.ndarray) -> np.ndarray:

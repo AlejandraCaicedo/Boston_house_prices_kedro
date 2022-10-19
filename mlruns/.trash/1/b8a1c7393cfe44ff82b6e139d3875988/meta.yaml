@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/guapa/Documents/Ciencia%20de%20datos/kedro/Boston_house_prices_kedro/mlruns/1/b8a1c7393cfe44ff82b6e139d3875988/artifacts
+end_time: 1666163384297
+entry_point_name: ''
+experiment_id: '1'
+lifecycle_stage: active
+name: ''
+run_id: b8a1c7393cfe44ff82b6e139d3875988
+run_uuid: b8a1c7393cfe44ff82b6e139d3875988
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1666163382701
+status: 3
+tags: []
+user_id: guapa

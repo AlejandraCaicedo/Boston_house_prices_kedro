@@ -3,3 +3,16 @@
 #
 # Documentation for this file format can be found in "Parameters"
 # Link: https://kedro.readthedocs.io/en/0.18.3/kedro_project_setup/configuration.html#parameters
+
+coll_fill_mode:
+  - zn
+  - chas
+  - rad
+  - tax
+  - ptratio
+  - black
+  - lstat
+
+coll_fill_mean:
+  - crim
+  - dis

@@ -14,11 +14,6 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-def print_shape(data: pd.DataFrame, msg: str = 'Shape =') -> pd.DataFrame:
-    """Print shape of dataframe."""
-    print(f'{data.shape}{msg}')
-    return data
-
 def drop_colums(data: pd.DataFrame) -> pd.DataFrame:
     data.drop(['ftyrgv','Unnamed: 0', 'nbgde','ID','index'], axis= 1, inplace = True)
     return data
@@ -47,12 +42,17 @@ def change_data_types(data: pd.DataFrame) -> pd.DataFrame:
         data[colum] = data[colum].astype('float64')
     return data
 
+def drop_nan(data: pd.DataFrame, col:str) -> pd.DataFrame:
+    data.drop(data[data[col].notnull() == False].index, inplace=True)
+    data.reset_index(inplace = True, drop = True)
+    return data
+
 def reset_index(data: pd.DataFrame) -> pd.DataFrame:
     data.reset_index(inplace = True, drop = True)
     return data
 
 def etl_processing(data: pd.DataFrame) -> pd.DataFrame:
-    mlflow.set_experiment('boston_house')
+    mlflow.set_experiment('house-pricing')
     mlflow.log_param("shape",data.shape)
 
     data = (data
@@ -63,6 +63,7 @@ def etl_processing(data: pd.DataFrame) -> pd.DataFrame:
             .pipe(replace_symbol_nan)
             .pipe(change_data_types)
             .pipe(drop_duplicates)
+            .pipe(drop_nan, col= "medv") 
     )
 
     return data
@@ -73,7 +74,7 @@ def data_integrity_validation(data: pd.DataFrame,
     # Run Suite:
     integ_suite = data_integrity()
     suite_result = integ_suite.run(data)
-    mlflow.set_experiment('boston_house')
+    mlflow.set_experiment('house-pricing')
     mlflow.log_param(f"data integrity validation", str(suite_result.passed()))
     if not suite_result.passed():
         # save report in data/08_reporting
@@ -90,7 +91,7 @@ def split_data(data: pd.DataFrame, parameters: Dict) -> Tuple:
     Returns:
         Split data.
     """
-    mlflow.set_experiment('boston_house')
+    mlflow.set_experiment('house-pricing')
     mlflow.log_param("split random_state", parameters['split']['random_state'])
     mlflow.log_param("split test_size", parameters['split']['test_size'])
 

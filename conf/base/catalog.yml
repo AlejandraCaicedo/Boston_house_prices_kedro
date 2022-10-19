@@ -33,16 +33,6 @@ y_test:
   filepath: data/02_intermediate/y_test.csv
   layer: primary
 
-x_train_out:
-  type: pandas.CSVDataSet
-  filepath: data/03_primary/x_train.csv
-  layer: primary
-
-y_train_out:
-  type: pandas.CSVDataSet
-  filepath: data/03_primary/y_train.csv
-  layer: primary
-
 column_transformers_pipeline:
   type: pickle.PickleDataSet
   filepath: data/04_feature/transformers_pipeline.pkl
@@ -56,16 +46,10 @@ x_train_model_input:
   layer: model input
 
 y_train_model_input:
-  type: pickle.PickleDataSet
-  filepath: data/05_model_input/y_train_model_input.pkl
-  backend: pickle
-  layer: model input
-
-model_trained:
-  type: pickle.PickleDataSet
-  filepath: data/06_models/titanic.pkl
-  backend: pickle
-  layer: models
+    type: pickle.PickleDataSet
+    filepath: data/05_model_input/y_train_model_input.pkl
+    backend: pickle
+    layer: model input
 
 score_train:
   type: kedro.extras.datasets.text.TextDataSet
