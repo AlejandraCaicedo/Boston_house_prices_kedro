@@ -1,0 +1,12 @@
+url: https://github.com/IAGuapacha/Boston_house_prices/tree/feature/data-processing
+
+target_column: medv
+features:
+
+categorical_cols:
+
+numerical_cols:
+
+split:
+  test_size: 0.2
+  random_state: 123
