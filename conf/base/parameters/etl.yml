@@ -1,11 +1,22 @@
 url: https://github.com/IAGuapacha/Boston_house_prices/tree/feature/data-processing
 
 target_column: medv
+
 features:
+  - crim
+  - zn
+  - black
+  - rad
+  - indus
+  - ptratio
+  - lstat
+  - chas
+  - dis
+  - tax
+  - rm
+  - age
+  - nox
 
-categorical_cols:
-
-numerical_cols:
 
 split:
   test_size: 0.2

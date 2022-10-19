@@ -3,9 +3,9 @@
 # Documentation for this file format can be found in "The Data Catalog"
 # Link: https://kedro.readthedocs.io/en/stable/data/data_catalog.html
 
-Data_raw:
+data_raw:
   type: pandas.CSVDataSet
-  filepath: data/01_raw/data_raw_csv.csv
+  filepath: data/01_raw/Precios_Casas_BostonDS.csv
   layer: raw
 
 data_preprocessed:
